@@ -24,9 +24,9 @@ PanelWindow {
             anchors.bottom: parent.bottom
             anchors.left: parent.left
 
-            anchors.leftMargin: 10
-
-            WorkspaceWidget {}
+            WidgetBackground {
+                WorkspaceWidget {}
+            }
         }
     }
 }
