@@ -31,5 +31,15 @@ PanelWindow {
                 WorkspaceWidget {}
             }
         }
+
+        RowLayout {
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            WidgetBackground {
+                ClockWidget {}
+            }
+        }
     }
 }
