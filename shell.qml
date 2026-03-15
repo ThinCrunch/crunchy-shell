@@ -1,5 +1,6 @@
 import Quickshell
 import QtQuick
+import QtQuick.Layouts
 
 PanelWindow {
     anchors.top: true
@@ -17,5 +18,15 @@ PanelWindow {
         anchors.fill: parent
         color: "#a6010005"
         radius: 5
+
+        RowLayout {
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.left: parent.left
+
+            anchors.leftMargin: 10
+
+            WorkspaceWidget {}
+        }
     }
 }
