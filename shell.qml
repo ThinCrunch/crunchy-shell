@@ -41,5 +41,17 @@ PanelWindow {
                 ClockWidget {}
             }
         }
+
+        RowLayout {
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.right: parent.right
+
+            anchors.rightMargin: 8
+
+            WidgetBackground {
+                AudioWidget {}
+            }
+        }
     }
 }
