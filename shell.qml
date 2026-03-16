@@ -53,6 +53,10 @@ PanelWindow {
             anchors.rightMargin: 8
 
             WidgetBackground {
+                KeyboardWidget {}
+            }
+
+            WidgetBackground {
                 AudioWidget {}
             }
         }
