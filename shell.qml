@@ -57,6 +57,10 @@ PanelWindow {
             }
 
             WidgetBackground {
+                NetworkWidget {}
+            }
+
+            WidgetBackground {
                 AudioWidget {}
             }
         }
