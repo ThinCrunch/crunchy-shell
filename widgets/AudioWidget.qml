@@ -1,5 +1,5 @@
-import QtQuick
 import Quickshell.Services.Pipewire
+import QtQuick
 
 Text {
     id: root

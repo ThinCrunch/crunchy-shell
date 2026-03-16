@@ -2,6 +2,9 @@ import Quickshell
 import QtQuick
 import QtQuick.Layouts
 
+import "components"
+import "widgets"
+
 PanelWindow {
     anchors.top: true
     anchors.left: true
