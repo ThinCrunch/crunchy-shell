@@ -2,13 +2,15 @@ import Quickshell.Hyprland
 import QtQuick
 import QtQuick.Layouts
 
+import qs.globals
+
 RowLayout {
     Repeater {
         model: Hyprland.workspaces.values.length
 
         Text {
-            font.family: "FantasqueSansM Nerd Font"
-            font.pixelSize: 16
+            font.family: Style.fontFamily
+            font.pixelSize: Style.fontPixelSize + 2
 
             required property int index
 
@@ -16,7 +18,7 @@ RowLayout {
             visible: workspace != null
 
             property bool isFocused: Hyprland.focusedWorkspace?.id == (index + 1)
-            color: isFocused ? 'black' : 'white'
+            color: isFocused ? Colors.fgSelected : Colors.fg
 
             property var icons: [ "", "󰖟", "󰆣", "", "" ]
             text: index < icons.length ? icons[index] : index + 1

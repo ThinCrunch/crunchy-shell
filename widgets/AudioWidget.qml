@@ -1,6 +1,8 @@
 import Quickshell.Services.Pipewire
 import QtQuick
 
+import qs.globals
+
 Text {
     id: root
 
@@ -11,16 +13,16 @@ Text {
 
     property int audioVolume: Math.round(defaultAudioSink.audio.volume * 100)
 
-    font.family: "FantasqueSansM Nerd Font"
-    font.pixelSize: 14
+    font.family: Style.fontFamily
+    font.pixelSize: Style.fontPixelSize
+    color: Colors.fg
 
     text: "  " + audioVolume
-    color: "white"
 
     states: [
         State {
             name: "muted"
-            PropertyChanges { root.color: "red" }
+            PropertyChanges { root.color: Colors.alertHigh }
             PropertyChanges { root.text: "  muted" }
             PropertyChanges { target: defaultAudioSink; audio.muted: true }
         }

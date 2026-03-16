@@ -1,11 +1,13 @@
 import QtQuick
 import QtQuick.Layouts
 
+import qs.globals
+
 Rectangle {
     id: root
 
     radius: 5
-    color: "#33ffffff"
+    color: Colors.bgModule
 
     property int padding: 12
 

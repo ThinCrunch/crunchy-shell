@@ -1,13 +1,15 @@
 import Quickshell
 import QtQuick
 
+import qs.globals
+
 Text {
     SystemClock {
         id: clock
         precision: SystemClock.Seconds
     }
 
-    color: "white"
+    color: Colors.fg
 
     // https://doc.qt.io/qt-6/qml-qtqml-qt.html#formatDateTime-method
     property string dateTime: Qt.formatDateTime(clock.date, "ddd MMM dd hh:mm:ss")
@@ -15,6 +17,6 @@ Text {
 
     text: icon + " " + dateTime
 
-    font.family: "FantasqueSansM Nerd Font"
-    font.pixelSize: 14
+    font.family: Style.fontFamily
+    font.pixelSize: Style.fontPixelSize
 }

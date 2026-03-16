@@ -2,6 +2,8 @@ import Quickshell.Io
 import Quickshell.Hyprland
 import QtQuick
 
+import qs.globals
+
 Text {
     id: root
 
@@ -9,14 +11,14 @@ Text {
     property string layout
     property string variant
 
-    font.family: "FantasqueSansM Nerd Font"
-    font.pixelSize: 14
+    font.family: Style.fontFamily
+    font.pixelSize: Style.fontPixelSize
 
     property string fullText: "  " + keymap + "-" + layout + " " + variant
     property string noVariantText: "  " + keymap + "-" + layout
 
     text: variant != "" ? fullText : noVariantText
-    color: "white"
+    color: Colors.fg
 
     Connections {
         target: Hyprland

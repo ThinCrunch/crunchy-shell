@@ -1,13 +1,15 @@
 import Quickshell.Io
 import QtQuick
 
+import qs.globals
+
 // Rewrite this once Quickshell.Networking is released to the stable branch
 
 Text {
     id: root
 
-    font.family: "FantasqueSansM Nerd Font"
-    font.pixelSize: 14
+    font.family: Style.fontFamily
+    font.pixelSize: Style.fontPixelSize
 
     property string device: ""
     property string connection: ""
@@ -16,7 +18,7 @@ Text {
     property string label: "disconnected"
 
     text: icon + " " + label
-    color: "white"
+    color: Colors.fg
 
     states: [
         State {

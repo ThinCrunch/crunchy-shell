@@ -3,6 +3,7 @@ import QtQuick
 import QtQuick.Layouts
 
 import qs.components
+import qs.globals
 import qs.widgets
 
 PanelWindow {
@@ -19,7 +20,7 @@ PanelWindow {
 
     Rectangle {
         anchors.fill: parent
-        color: "#a6010005"
+        color: Colors.bg
         radius: 5
 
         RowLayout {
