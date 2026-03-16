@@ -2,8 +2,8 @@ import Quickshell
 import QtQuick
 import QtQuick.Layouts
 
-import "components"
-import "widgets"
+import qs.components
+import qs.widgets
 
 PanelWindow {
     anchors.top: true
