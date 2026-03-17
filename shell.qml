@@ -4,7 +4,7 @@ import QtQuick.Layouts
 
 import qs.components
 import qs.globals
-import qs.widgets
+import qs.modules
 
 PanelWindow {
     anchors.top: true
@@ -32,7 +32,7 @@ PanelWindow {
             spacing: 8
 
             WidgetBackground {
-                WorkspaceWidget {}
+                WorkspaceModule {}
             }
         }
 
@@ -42,7 +42,7 @@ PanelWindow {
             anchors.horizontalCenter: parent.horizontalCenter
 
             WidgetBackground {
-                ClockWidget {}
+                ClockModule {}
             }
         }
 
@@ -54,15 +54,15 @@ PanelWindow {
             anchors.rightMargin: 8
 
             WidgetBackground {
-                KeyboardWidget {}
+                KeyboardModule {}
             }
 
             WidgetBackground {
-                NetworkWidget {}
+                NetworkModule {}
             }
 
             WidgetBackground {
-                AudioWidget {}
+                AudioModule {}
             }
         }
     }
