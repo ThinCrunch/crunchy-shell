@@ -68,6 +68,10 @@ PanelWindow {
             WidgetBackground {
                 AudioModule {}
             }
+
+            WidgetBackground {
+                PowerProfileModule {}
+            }
         }
     }
 }
