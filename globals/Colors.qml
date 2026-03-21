@@ -10,4 +10,5 @@ Singleton {
     property string fgSelected: "#03000F"
     property string alertHigh: "#FF441F"
     property string alertMedium: "#FF9800"
+    property string notifyGreen: "#26ff55"
 }

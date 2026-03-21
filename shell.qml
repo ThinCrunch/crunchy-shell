@@ -62,6 +62,10 @@ PanelWindow {
             }
 
             WidgetBackground {
+                BatteryModule {}
+            }
+
+            WidgetBackground {
                 AudioModule {}
             }
         }
