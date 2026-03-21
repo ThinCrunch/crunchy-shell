@@ -11,7 +11,7 @@ Text {
         objects: [ root.defaultAudioSink ]
     }
 
-    property int audioVolume: Math.round(defaultAudioSink.audio.volume * 100)
+    property int audioVolume: defaultAudioSink ? Math.round(defaultAudioSink.audio.volume * 100) : -1
 
     font.family: Style.fontFamily
     font.pixelSize: Style.fontPixelSize
