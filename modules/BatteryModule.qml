@@ -11,8 +11,8 @@ Text {
     color: Colors.fg
 
     property var batteryDevice: UPower.devices.values.find(d => d.type == UPowerDeviceType.Battery)
-    property int capacity: batteryDevice.percentage * 100
-    property string energyRate: batteryDevice.changeRate.toFixed(1)
+    property int capacity: batteryDevice ? batteryDevice.percentage * 100 : -1
+    property string energyRate: batteryDevice ? batteryDevice.changeRate.toFixed(1) : "0.0"
 
     property string icon: "? "
     property string dischargingText: icon + capacity + " (" + energyRate + ")"
@@ -71,6 +71,9 @@ Text {
     ]
 
     Component.onCompleted: {
+        if (!root.batteryDevice) {
+            return
+        }
         root.batteryDevice.stateChanged.connect(updateState)
         root.batteryDevice.percentageChanged.connect(updateState)
         root.updateState()
