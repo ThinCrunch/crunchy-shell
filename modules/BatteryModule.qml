@@ -73,27 +73,37 @@ Text {
     Component.onCompleted: {
         root.batteryDevice.stateChanged.connect(updateState)
         root.batteryDevice.percentageChanged.connect(updateState)
-        updateState()
+        root.updateState()
+    }
 
-        function updateState() {
-            const state = root.batteryDevice.state
+    Connections {
+        target: root
 
-            if (state == UPowerDeviceState.Charging) {
-                root.state = "Charging"
-                return
-            }
-
-            if (state == UPowerDeviceState.FullyCharged || state == UPowerDeviceState.PendingCharge) {
-                root.state = "CapacityFull"
-                return
-            }
-
-            root.state = "Capacity4"
-            if (root.capacity <= 75) { root.state = "Capacity3" }
-            if (root.capacity <= 50) { root.State = "Capacity2" }
-            if (root.capacity <= 25) { root.state = "Capacity1" }
-            if (root.capacity <= 15) { root.state = "CapacityWarning" }
-            if (root.capacity <= 5)  { root.state = "CapacityCritical" }
+        function onBatteryDeviceChanged() {
+            root.batteryDevice.stateChanged.connect(root.updateState)
+            root.batteryDevice.percentageChanged.connect(root.updateState)
+            root.updateState()
         }
+    }
+
+    function updateState() {
+        const state = root.batteryDevice.state
+
+        if (state == UPowerDeviceState.Charging) {
+            root.state = "Charging"
+            return
+        }
+
+        if (state == UPowerDeviceState.FullyCharged || state == UPowerDeviceState.PendingCharge) {
+            root.state = "CapacityFull"
+            return
+        }
+
+        root.state = "Capacity4"
+        if (root.capacity <= 75) { root.state = "Capacity3" }
+        if (root.capacity <= 50) { root.State = "Capacity2" }
+        if (root.capacity <= 25) { root.state = "Capacity1" }
+        if (root.capacity <= 15) { root.state = "CapacityWarning" }
+        if (root.capacity <= 5)  { root.state = "CapacityCritical" }
     }
 }
