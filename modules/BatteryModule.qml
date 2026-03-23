@@ -15,7 +15,7 @@ Text {
     property string energyRate: batteryDevice ? batteryDevice.changeRate.toFixed(1) : "0.0"
 
     property string icon: "? "
-    property string dischargingText: icon + capacity + " (" + energyRate + ")"
+    property string dischargingText: icon + capacity + "(" + energyRate + ")"
     property string pluggedText: icon + capacity
     text: pluggedText
 
