@@ -23,11 +23,15 @@ Text {
     states: [
         State {
             name: "ethernet"
-            PropertyChanges { root.icon: "󰈁"; root.label: root.device }
+            PropertyChanges {
+                root.icon: "󰈁";
+                root.label: root.device }
         },
         State {
             name: "wifi"
-            PropertyChanges { root.icon: " "; root.label: root.connection }
+            PropertyChanges {
+                root.icon: " ";
+                root.label: root.connection }
         }
     ]
 

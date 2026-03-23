@@ -26,15 +26,19 @@ Text {
     states: [
         State {
             name: "not-muted"
-            PropertyChanges { root.color: Colors.fg }
-            PropertyChanges { root.icon: " " }  // TODO: Unique icon by device type
-            PropertyChanges { root.label: root.audioVolume }
+            PropertyChanges {
+                root.color: Colors.fg;
+                root.icon: " ";  // TODO: Unique icon by device type
+                root.label: root.audioVolume 
+            }
         },
         State {
             name: "muted"
-            PropertyChanges { root.color: Colors.alertHigh }
-            PropertyChanges { root.icon: " " }
-            PropertyChanges { root.label: "muted" }
+            PropertyChanges {
+                root.color: Colors.alertHigh;
+                root.icon: " ";
+                root.label: "muted";
+            }
         }
     ]
 

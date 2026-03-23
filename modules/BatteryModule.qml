@@ -22,51 +22,67 @@ Text {
     states: [
         State {
             name: "Charging"
-            PropertyChanges { root.icon: " " }
-            PropertyChanges { root.color: Colors.notifyGreen }
-            PropertyChanges { root.text: pluggedText }
+            PropertyChanges { 
+                root.icon: " ";
+                root.color: Colors.notifyGreen;
+                root.text: pluggedText;
+            }
         },
         State {
             name: "CapacityFull"
-            PropertyChanges { root.icon: "  " }
-            PropertyChanges { root.color: Colors.fg }
-            PropertyChanges { root.text: pluggedText }
+            PropertyChanges { 
+                root.icon: "  ";
+                root.color: Colors.fg;
+                root.text: pluggedText;
+            }
         },
         State {
             name: "Capacity4"
-            PropertyChanges { root.icon: "  " }
-            PropertyChanges { root.color: Colors.fg }
-            PropertyChanges { root.text: dischargingText }
+            PropertyChanges {
+                root.icon: "  ";
+                root.color: Colors.fg;
+                root.text: dischargingText
+            }
         },
         State {
             name: "Capacity3"
-            PropertyChanges { root.icon: "  " }
-            PropertyChanges { root.color: Colors.fg }
-            PropertyChanges { root.text: dischargingText }
+            PropertyChanges {
+                root.icon: "  ";
+                root.color: Colors.fg;
+                root.text: dischargingText
+            }
         },
         State {
             name: "Capacity2"
-            PropertyChanges { root.icon: "  " }
-            PropertyChanges { root.color: Colors.fg }
-            PropertyChanges { root.text: dischargingText }
+            PropertyChanges {
+                root.icon: "  ";
+                root.color: Colors.fg;
+                root.text: dischargingText;
+            }
         },
         State {
             name: "Capacity1"
-            PropertyChanges { root.icon: "  " }
-            PropertyChanges { root.color: Colors.fg }
-            PropertyChanges { root.text: dischargingText }
+            PropertyChanges {
+                root.icon: "  ";
+                root.color: Colors.fg;
+                root.text: dischargingText;
+            }
         },
         State {
             name: "CapacityWarning"
-            PropertyChanges { root.icon: " " }
-            PropertyChanges { root.color: Colors.alertMedium }
-            PropertyChanges { root.text: dischargingText }
+            PropertyChanges {
+                root.icon: " ";
+                root.color: Colors.alertMedium;
+                root.text: dischargingText;
+            }
         },
         State {
             name: "CapacityCritical"
-            PropertyChanges { root.text: " " }
-            PropertyChanges { root.color: Colors.alertHigh }
-            PropertyChanges { root.text: dischargingText }
+            PropertyChanges {
+                root.icon: " ";
+                root.color: Colors.alertHigh;
+                root.text: dischargingText;
+            }
         }
     ]
 

@@ -17,18 +17,24 @@ Text {
     states: [
         State {
             name: PowerProfile.PowerSaver.toString()
-            PropertyChanges { root.color: Colors.fg }
-            PropertyChanges { root.text: " " }
+            PropertyChanges {
+                root.color: Colors.fg;
+                root.text: " "; 
+            }
         },
         State {
             name: PowerProfile.Balanced.toString()
-            PropertyChanges { root.color: Colors.alertMedium }
-            PropertyChanges { root.text: "󰗑 " }
+            PropertyChanges {
+                root.color: Colors.alertMedium;
+                root.text: "󰗑 ";
+            }
         },
         State {
             name: PowerProfile.Performance.toString()
-            PropertyChanges { root.color: Colors.alertHigh }
-            PropertyChanges { root.text: " " }
+            PropertyChanges {
+                root.color: Colors.alertHigh;
+                root.text: " ";
+            }
         }
     ]
 
