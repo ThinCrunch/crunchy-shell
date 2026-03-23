@@ -20,7 +20,7 @@ RowLayout {
             property bool isFocused: Hyprland.focusedWorkspace?.id == (index + 1)
             color: isFocused ? Colors.fgSelected : Colors.fg
 
-            property var icons: [ "", "󰖟", "󰆣", "", "" ]
+            property var icons: [ " ", "󰖟 ", "󰆣 ", " ", " " ]
             text: index < icons.length ? icons[index] : index + 1
 
             MouseArea {

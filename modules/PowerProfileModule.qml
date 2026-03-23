@@ -10,7 +10,7 @@ Text {
     font.pixelSize: Style.fontPixelSize
     color: Colors.fg
 
-    text: "?"
+    text: "? "
 
     state: PowerProfiles.profile.toString()
 

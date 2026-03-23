@@ -14,7 +14,7 @@ Text {
     property string device: ""
     property string connection: ""
 
-    property string icon: ""
+    property string icon: " "
     property string label: "disconnected"
 
     text: icon + " " + label
