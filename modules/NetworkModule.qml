@@ -39,7 +39,7 @@ Text {
         id: getConnectionInfo
 
         running: true
-        command: [ "nmcli", "device", "status" ]
+        command: [ "nmcli", "-t", "device", "status" ]
         stdout: StdioCollector {
             onStreamFinished: {
                 var rows = this.text.split("\n")
@@ -48,7 +48,7 @@ Text {
                 var finalType = ""
                 var finalDevice = ""
                 for (const row of rows) {
-                    var splitData = row.trim().split(/\s+/)
+                    var splitData = row.split(":")
                     var [device, type, state, connection] = splitData
 
                     if (["ethernet", "wifi"].includes(type) && state == "connected") {
