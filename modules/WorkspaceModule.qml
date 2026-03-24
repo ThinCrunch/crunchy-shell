@@ -11,6 +11,7 @@ RowLayout {
         Text {
             font.family: Style.fontFamily
             font.pixelSize: Style.fontPixelSize + 2
+            font.weight: Style.fontWeight
 
             required property int index
 

@@ -6,7 +6,7 @@ import qs.globals
 Rectangle {
     id: root
 
-    radius: 5
+    radius: Style.borderRadius
     color: Colors.bgModule
 
     property int padding: 12

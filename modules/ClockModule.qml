@@ -19,4 +19,5 @@ Text {
 
     font.family: Style.fontFamily
     font.pixelSize: Style.fontPixelSize
+    font.weight: Style.fontWeight
 }

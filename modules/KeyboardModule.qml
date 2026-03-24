@@ -13,6 +13,7 @@ Text {
 
     font.family: Style.fontFamily
     font.pixelSize: Style.fontPixelSize
+    font.weight: Style.fontWeight
 
     property string fullText: "  " + keymap + "-" + layout + " " + variant
     property string noVariantText: "  " + keymap + "-" + layout
