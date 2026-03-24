@@ -32,6 +32,10 @@ PanelWindow {
             spacing: 8
 
             WidgetBackground {
+                SystemTrayModule {}
+            }
+
+            WidgetBackground {
                 WorkspaceModule {}
             }
         }
