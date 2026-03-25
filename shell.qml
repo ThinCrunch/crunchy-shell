@@ -31,11 +31,11 @@ PanelWindow {
             anchors.leftMargin: 8
             spacing: 8
 
-            WidgetBackground {
+            ModuleBackground {
                 SystemTrayModule {}
             }
 
-            WidgetBackground {
+            ModuleBackground {
                 WorkspaceModule {}
             }
         }
@@ -45,7 +45,7 @@ PanelWindow {
             anchors.bottom: parent.bottom
             anchors.horizontalCenter: parent.horizontalCenter
 
-            WidgetBackground {
+            ModuleBackground {
                 ClockModule {}
             }
         }
@@ -57,23 +57,23 @@ PanelWindow {
 
             anchors.rightMargin: 8
 
-            WidgetBackground {
+            ModuleBackground {
                 KeyboardModule {}
             }
 
-            WidgetBackground {
+            ModuleBackground {
                 NetworkModule {}
             }
 
-            WidgetBackground {
+            ModuleBackground {
                 BatteryModule {}
             }
 
-            WidgetBackground {
+            ModuleBackground {
                 AudioModule {}
             }
 
-            WidgetBackground {
+            ModuleBackground {
                 PowerProfileModule {}
             }
         }
