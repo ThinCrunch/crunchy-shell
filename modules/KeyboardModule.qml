@@ -3,23 +3,19 @@ import Quickshell.Hyprland
 import QtQuick
 
 import qs.globals
+import qs.components
 
-Text {
+ModuleText {
     id: root
 
     property string keymap
     property string layout
     property string variant
 
-    font.family: Style.fontFamily
-    font.pixelSize: Style.fontPixelSize
-    font.weight: Style.fontWeight
-
     property string fullText: "  " + keymap + "-" + layout + " " + variant
     property string noVariantText: "  " + keymap + "-" + layout
 
     text: variant != "" ? fullText : noVariantText
-    color: Colors.fg
 
     Connections {
         target: Hyprland

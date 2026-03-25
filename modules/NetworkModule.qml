@@ -1,16 +1,12 @@
 import Quickshell.Io
 import QtQuick
 
-import qs.globals
+import qs.components
 
 // Rewrite this once Quickshell.Networking is released to the stable branch
 
-Text {
+ModuleText {
     id: root
-
-    font.family: Style.fontFamily
-    font.pixelSize: Style.fontPixelSize
-    font.weight: Style.fontWeight
 
     property string device: ""
     property string connection: ""
@@ -19,7 +15,6 @@ Text {
     property string label: "disconnected"
 
     text: icon + " " + label
-    color: Colors.fg
 
     states: [
         State {

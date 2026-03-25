@@ -1,9 +1,10 @@
 import Quickshell.Services.Pipewire
 import QtQuick
 
+import qs.components
 import qs.globals
 
-Text {
+ModuleText {
     id: root
 
     property var defaultAudioSink: Pipewire.defaultAudioSink
@@ -12,11 +13,6 @@ Text {
     }
 
     property int audioVolume: defaultAudioSink ? Math.round(defaultAudioSink.audio.volume * 100) : -1
-
-    font.family: Style.fontFamily
-    font.pixelSize: Style.fontPixelSize
-    font.weight: Style.fontWeight
-    color: Colors.fg
 
     property var icon: "? "
     property var label: "AUDIO"

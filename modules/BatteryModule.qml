@@ -1,15 +1,11 @@
 import QtQuick
 import Quickshell.Services.UPower
 
+import qs.components
 import qs.globals
 
-Text {
+ModuleText {
     id: root
-
-    font.family: Style.fontFamily
-    font.pixelSize: Style.fontPixelSize
-    font.weight: Style.fontWeight
-    color: Colors.fg
 
     property var batteryDevice: UPower.devices.values.find(d => d.type == UPowerDeviceType.Battery)
     property int capacity: batteryDevice ? batteryDevice.percentage * 100 : -1

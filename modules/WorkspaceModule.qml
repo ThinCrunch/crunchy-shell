@@ -2,17 +2,14 @@ import Quickshell.Hyprland
 import QtQuick
 import QtQuick.Layouts
 
+import qs.components
 import qs.globals
 
 RowLayout {
     Repeater {
         model: Hyprland.workspaces.values.length
 
-        Text {
-            font.family: Style.fontFamily
-            font.pixelSize: Style.fontPixelSize + 2
-            font.weight: Style.fontWeight
-
+        ModuleText {
             required property int index
 
             property var workspace: Hyprland.workspaces.values.find(w => w.id == index + 1)
