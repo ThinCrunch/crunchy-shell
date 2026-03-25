@@ -1,15 +1,14 @@
 import QtQuick
-import Quickshell.Services.UPower
 
 import qs.components
 import qs.globals
+import qs.services
 
 ModuleText {
     id: root
 
-    property var batteryDevice: UPower.devices.values.find(d => d.type == UPowerDeviceType.Battery)
-    property int capacity: batteryDevice ? batteryDevice.percentage * 100 : -1
-    property string energyRate: batteryDevice ? batteryDevice.changeRate.toFixed(1) : "0.0"
+    property int capacity: BatteryService.capacity
+    property string energyRate: BatteryService.energyRate
 
     property string icon: "? "
     property string dischargingText: icon + capacity + "(" + energyRate + ")"
@@ -84,40 +83,38 @@ ModuleText {
     ]
 
     Component.onCompleted: {
-        if (!root.batteryDevice) {
+        if (!BatteryService.ready) {
             return
         }
-        root.batteryDevice.stateChanged.connect(updateState)
-        root.batteryDevice.percentageChanged.connect(updateState)
+        BatteryService.stateChanged.connect(updateState)
+        BatteryService.capacityChanged.connect(updateState)
         root.updateState()
     }
 
     Connections {
-        target: root
+        target: BatteryService
 
-        function onBatteryDeviceChanged() {
-            root.batteryDevice.stateChanged.connect(root.updateState)
-            root.batteryDevice.percentageChanged.connect(root.updateState)
+        function onReadyChanged() {
+            BatteryService.stateChanged.connect(root.updateState)
+            BatteryService.capacityChanged.connect(root.updateState)
             root.updateState()
         }
     }
 
     function updateState() {
-        const state = root.batteryDevice.state
-
-        if (state == UPowerDeviceState.Charging) {
+        if (BatteryService.charging) {
             root.state = "Charging"
             return
         }
 
-        if (state == UPowerDeviceState.FullyCharged || state == UPowerDeviceState.PendingCharge) {
+        if (BatteryService.maxCapacity) {
             root.state = "CapacityFull"
             return
         }
 
         root.state = "Capacity4"
         if (root.capacity <= 75) { root.state = "Capacity3" }
-        if (root.capacity <= 50) { root.State = "Capacity2" }
+        if (root.capacity <= 50) { root.state = "Capacity2" }
         if (root.capacity <= 25) { root.state = "Capacity1" }
         if (root.capacity <= 15) { root.state = "CapacityWarning" }
         if (root.capacity <= 5)  { root.state = "CapacityCritical" }
