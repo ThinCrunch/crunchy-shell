@@ -52,7 +52,7 @@ Singleton {
         command: ["nmcli", "monitor"]
         stdout: SplitParser {
             onRead: data=> {
-                if (data.includes("connected")) {
+                if (data.includes("primary connection")) {
                     getConnectionInfo.running = true
                 }
             }
