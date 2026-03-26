@@ -1,29 +1,27 @@
-import Quickshell.Hyprland
 import QtQuick
 import QtQuick.Layouts
 
 import qs.components
 import qs.globals
+import qs.services
 
 RowLayout {
     Repeater {
-        model: Hyprland.workspaces.values.length
+        model: HyprlandService.workspaceAmount
 
         ModuleText {
+            id: wsLabel
             required property int index
 
-            property var workspace: Hyprland.workspaces.values.find(w => w.id == index + 1)
-            visible: workspace != null
-
-            property bool isFocused: Hyprland.focusedWorkspace?.id == (index + 1)
-            color: isFocused ? Colors.fgSelected : Colors.fg
+            visible: HyprlandService.doesWorkspaceExist(index)
+            color: HyprlandService.isWorkspaceFocused(index) ? Colors.fgSelected : Colors.fg
 
             property var icons: [ " ", "󰖟 ", "󰆣 ", " ", " " ]
             text: index < icons.length ? icons[index] : index + 1
 
             MouseArea {
                 anchors.fill: parent
-                onClicked: { parent.workspace.activate() }
+                onClicked: { HyprlandService.activateWorkspace(wsLabel.index) }
             }
         }
     }

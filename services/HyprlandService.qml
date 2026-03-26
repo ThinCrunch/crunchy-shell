@@ -12,6 +12,29 @@ Singleton {
     property string layout: "LAYOUT"
     property string variant: "VARIANT"
 
+    property int workspaceAmount: Hyprland.workspaces.values.length
+
+    function activateWorkspace(index: int): void {
+        if (isWorkspaceFocused(index)) {
+            return
+        }
+        _getWorkspaceByIndex(index).activate()
+    }
+
+    function doesWorkspaceExist(index: int): bool {
+        const workspace = _getWorkspaceByIndex(index)
+        return workspace != null
+    }
+
+    function isWorkspaceFocused(index: int): bool {
+        return Hyprland.focusedWorkspace?.id == (index + 1)
+    }
+
+    function _getWorkspaceByIndex(index: int): HyprlandWorkspace {
+        const idk = Hyprland.workspaces.values.find(w => w.id == index + 1)
+        return idk
+    }
+
     Connections {
         target: Hyprland
 
