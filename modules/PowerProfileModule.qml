@@ -3,13 +3,14 @@ import QtQuick
 
 import qs.components
 import qs.globals
+import qs.services
 
 Text {
     id: root
 
     text: "? "
 
-    state: PowerProfiles.profile.toString()
+    state: BatteryService.powerProfile.toString()
 
     states: [
         State {
@@ -39,8 +40,7 @@ Text {
         anchors.fill: parent
 
         onClicked: {
-            const profileAmount = Object.keys(PowerProfile).length
-            PowerProfiles.profile = (PowerProfiles.profile + 1) % profileAmount
+            BatteryService.nextPowerProfile()
         }
     }
 }

@@ -16,4 +16,11 @@ Singleton {
     property var state: batteryDevice?.state
     property bool charging: state == UPowerDeviceState.Charging
     property bool maxCapacity: state == UPowerDeviceState.FullyCharged || state == UPowerDeviceState.PendingCharge
+
+    property var powerProfile: PowerProfiles.profile.toString()
+
+    function nextPowerProfile(): void {
+        const profileAmount = Object.keys(PowerProfile).length
+        PowerProfiles.profile = (PowerProfiles.profile + 1) % profileAmount
+    }
 }
