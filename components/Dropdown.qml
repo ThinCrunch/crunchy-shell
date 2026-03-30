@@ -1,6 +1,7 @@
 import Quickshell
 import Quickshell.Hyprland
 import QtQuick
+import QtQuick.Layouts
 
 import qs.globals
 
@@ -13,18 +14,70 @@ PopupWindow {
 
     property int padding: 12
     property bool isOpen: false
+    property bool showHeader: false
+    property string headerText: "?HEADER"
 
-    implicitHeight: content ? content.height + padding : 300
-    implicitWidth: content ? content.width + padding : 300
+    property int totalSpacing: showHeader ? contentBg.spacing * 2 : 0
+    property int headerHeight: showHeader ? header.height : 0
+    property int contentHeight: headerHeight + content.height + totalSpacing + 2 * padding
+
+    property int headerWidth: showHeader ? header.width : 0
+    property int contentWidth: Math.max(headerWidth, content.width) + 2 * padding
+
+    implicitHeight: content ? contentHeight : 300
+    implicitWidth: content ? contentWidth : 300
 
     visible: false
 
     Rectangle {
-        id: contentBg
         anchors.fill: parent
 
         radius: Style.borderRadius
         color: Colors.bg
+
+        ColumnLayout {
+            id: contentBg
+            anchors.fill: parent
+            spacing: 10
+
+            Item {
+                id: spacerTop
+                implicitHeight: root.padding - contentBg.spacing
+            }
+
+            ModuleText {
+                id: header
+                visible: root.showHeader
+                text: root.headerText
+
+                Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                font.weight: Style.fontWeight + 100
+                font.pixelSize: Style.fontPixelSize + 2
+            }
+
+            Rectangle {
+                id: separator
+                visible: root.showHeader
+                color: Colors.bgModule
+
+                Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                implicitWidth: root.contentWidth - 2 * root.padding
+                implicitHeight: 2
+            }
+
+            Item {
+                id: contentItem
+
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                Layout.fillHeight: true
+                Layout.preferredWidth: root.content.width
+            }
+
+            Item {
+                id: spacerBottom
+                implicitHeight: root.padding - contentBg.spacing
+            }
+        }
     }
 
     HyprlandFocusGrab {
@@ -43,8 +96,7 @@ PopupWindow {
 
     onContentChanged: {
         if (content) {
-            content.parent = contentBg
-            content.anchors.centerIn = contentBg
+            content.parent = contentItem
         }
     }
 
