@@ -6,43 +6,40 @@ import qs.services
 ModuleText {
     id: root
 
-    property string device: NetworkService.device
-    property string connection: NetworkService.connection
-    property string type: NetworkService.type
-
-    property string icon: "? "
+    property string icon: "?"
     property string label: "NETWORK"
 
     text: icon + " " + label
 
     state: {
-        switch (type) {
-            case "ethernet":
-                return "ethernet"
-            case "wifi":
-                return "wifi"
-            case "":
-                return "disconnected"
+        if (!NetworkService.wiredDeviceConnectionInactive) {
+            return "Wired"
         }
+
+        if (!NetworkService.wifiDeviceConnectionInactive) {
+            return "Wifi"
+        }
+
+        return "NotConnected";
     }
 
     states: [
         State {
-            name: "ethernet"
+            name: "Wired"
             PropertyChanges {
                 root.icon: "󰈁";
-                root.label: root.device
+                root.label: NetworkService.wiredDeviceName
             }
         },
         State {
-            name: "wifi"
+            name: "Wifi"
             PropertyChanges {
                 root.icon: " ";
-                root.label: root.connection
+                root.label: NetworkService.wifiConnectedNetworkName
             }
         },
         State {
-            name: "disconnected"
+            name: "NotConnected"
             PropertyChanges {
                 root.icon: " ";
                 root.label: "disconnected"
@@ -50,4 +47,3 @@ ModuleText {
         }
     ]
 }
-

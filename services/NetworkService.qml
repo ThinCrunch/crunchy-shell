@@ -1,62 +1,68 @@
 pragma Singleton
 
-import Quickshell.Io
+import QtQuick
 import Quickshell
-
-// Rewrite this once Quickshell.Networking is released to the stable branch
+import Quickshell.Networking
 
 Singleton {
     id: root
 
-    property string device: "DEVICE"
-    property string connection: "CONNECTION"
-    property string type: "TYPE"
+    property bool notConnected: Networking.connectivity == NetworkConnectivity.None
+    property bool noInternet: Networking.connectivity == NetworkConnectivity.Limited
+    property bool wifiEnabled: Networking.wifiEnabled
 
-    Process {
-        id: getConnectionInfo
+    property string wifiDeviceName: internal.activeWifiDevice?.name ?? "no active wifi device"
+    property int wifiDeviceConnectionStatus: internal.wifiDeviceConnectionStatus
+    property bool wifiDeviceConnectionInactive: internal.stateInactive(wifiDeviceConnectionStatus)
+    property string wifiConnectedNetworkName: internal.wifiConnectedNetworkName
 
-        running: true
-        command: [ "nmcli", "-t", "device", "status" ]
-        stdout: StdioCollector {
-            onStreamFinished: {
-                var rows = this.text.split("\n")
+    property string wiredDeviceName: internal.activeWiredDevice?.name ?? "no active wired device"
+    property int wiredDeviceConnectionStatus: internal.wiredDeviceConnectionStatus
+    property bool wiredDeviceConnectionInactive: internal.stateInactive(wiredDeviceConnectionStatus)
 
-                var finalConnection = ""
-                var finalType = ""
-                var finalDevice = ""
-                for (const row of rows) {
-                    var splitData = row.split(":")
-                    var [device, type, state, connection] = splitData
+    // DeviceConnectionStatus
+    readonly property int statusDisconnected:  0
+    readonly property int statusConnected:     1
+    readonly property int statusConnecting:    2
+    readonly property int statusDisconnecting: 3
+    readonly property int statusUnknown:      -1
 
-                    if (["ethernet", "wifi"].includes(type) && state == "connected") {
-                        finalDevice = device
-                        finalConnection = connection
-                        finalType = type
+    QtObject {
+        id: internal
 
-                        if (type == "ethernet") {
-                            break
-                        }
-                    }
-                }
-                root.device = finalDevice
-                root.connection = finalConnection
-                root.type = finalType
-            } 
+        property NetworkDevice activeWifiDevice: getActiveDeviceByType(DeviceType.Wifi)
+        property int wifiDeviceConnectionStatus: translateConnectionStatus(activeWifiDevice?.state)
+        property Network connectedNetwork: {
+            if (!activeWifiDevice) {
+                return null;
+            }
+
+            let connectedNetwork = [...activeWifiDevice?.networks.values].find(n => !stateInactive(n.state))
+            return connectedNetwork ?? null
         }
-    }
+        property string wifiConnectedNetworkName: connectedNetwork?.name ?? "no active network"
 
-    Process {
-        id: connectionChangeListener
+        property NetworkDevice activeWiredDevice: getActiveDeviceByType(DeviceType.Wired)
+        property int wiredDeviceConnectionStatus: translateConnectionStatus(activeWiredDevice?.state)
 
-        running: true
-        command: ["nmcli", "monitor"]
-        stdout: SplitParser {
-            onRead: data=> {
-                if (data.includes("primary connection")) {
-                    getConnectionInfo.running = true
-                }
+        function getActiveDeviceByType(type: int): NetworkDevice {
+            let devices = [...Networking.devices.values].filter(d => d.type == type);
+            return devices.find(d => !stateInactive(d.state));
+        }
+
+        function stateInactive(state: int): bool {
+            return translateConnectionStatus(state) == root.statusDisconnected ||
+                   translateConnectionStatus(state) == root.statusUnknown;
+        }
+
+        function translateConnectionStatus(c: int): int {
+            switch (c) {
+                case ConnectionState.Disconnected:  return root.statusDisconnected;
+                case ConnectionState.Connected:     return root.statusConnected;
+                case ConnectionState.Connecting:    return root.statusConnecting;
+                case ConnectionState.Disconnecting: return root.statusDisconnecting;
+                default: return -1
             }
         }
     }
 }
-
