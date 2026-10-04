@@ -12,6 +12,9 @@ Singleton {
     property string layout: "LAYOUT"
     property string variant: "VARIANT"
 
+    property var xkbLayoutDB: []
+    property var usedLayouts: []
+
     property int workspaceAmount: Hyprland.workspaces.values.length
 
     function activateWorkspace(index: int): void {
@@ -35,31 +38,65 @@ Singleton {
         return idk
     }
 
+    function _getLayoutDescription(layout: string, variant: string): string {
+        for (let layoutVariant of root.xkbLayoutDB) {
+            if (layoutVariant["layout"] == layout && layoutVariant["variant"] == variant) {
+                return layoutVariant["description"];
+            }
+        }
+
+        return "No description found."
+    }
+
     Connections {
         target: Hyprland
 
         function onRawEvent(event) {
             if (event.name == "activelayout") {
-                getLayout.running = true
+                getUsedLayouts.running = true
             }
         }
     }
 
     Process {
-        id: getLayout
+        id: getUsedLayouts
 
-        running: true
+        running: false
         command: [ "hyprctl", "-j", "devices" ]
         stdout: StdioCollector {
             onStreamFinished: {
                 const devices = JSON.parse(this.text)
                 const mainKb = devices.keyboards.find((kb) => kb.main == true)
 
-                const layoutIdx = mainKb.active_layout_index
-                root.layout = mainKb.layout.split(", ")[layoutIdx]
-                root.variant = mainKb.variant.split(", ")[layoutIdx]
+                let layouts = mainKb.layout.split(", ")
+                let variants = mainKb.variant.split(", ")
+
+                const activeLayoutIdx = mainKb.active_layout_index
+                root.layout = layouts[activeLayoutIdx]
+                root.variant = variants[activeLayoutIdx]
                 root.keymap = mainKb.active_keymap.slice(0,2).toLowerCase()
-            } 
+
+                root.usedLayouts.length = 0;
+                for (let i = 0; i < layouts.length; i++) {
+                    let description = root._getLayoutDescription(layouts[i], variants[i])
+                    root.usedLayouts.push({layout: layouts[i], variant: variants[i], description: description})
+                }
+            }
+        }
+    }
+
+    Process {
+        id: getXkbLayoutDB
+
+        running: true
+        command: [ "sh", "-c", "xkbcli list | yq" ]
+        stdout: StdioCollector {
+            onStreamFinished: {
+                const data = JSON.parse(this.text)
+                root.xkbLayoutDB = data.layouts
+
+                getUsedLayouts.running = true
+            }
         }
     }
 }
