@@ -79,7 +79,12 @@ Singleton {
                 root.usedLayouts.length = 0;
                 for (let i = 0; i < layouts.length; i++) {
                     let description = root._getLayoutDescription(layouts[i], variants[i]);
-                    root.usedLayouts.push({layout: layouts[i], variant: variants[i], description: description});
+                    let keymap = description.slice(0,2).toLowerCase();
+                    root.usedLayouts.push({
+                        layout: layouts[i],
+                        variant: variants[i],
+                        description: description,
+                        keymap: keymap});
                 }
                 root.usedLayoutsChanged();
             }
