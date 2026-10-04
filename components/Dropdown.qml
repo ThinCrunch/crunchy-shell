@@ -89,19 +89,19 @@ PopupWindow {
         // Close dropdown on focus loss
         onActiveChanged: {
             if (!active) { 
-                root.isOpen = false 
+                root.isOpen = false;
             }
         }
     }
 
     onContentChanged: {
         if (content) {
-            content.parent = contentItem
+            content.parent = contentItem;
         }
     }
 
     onIsOpenChanged: {
-        grab.active = isOpen
-        root.visible = isOpen
+        grab.active = isOpen;
+        root.visible = isOpen;
     }
 }

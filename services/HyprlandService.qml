@@ -19,23 +19,23 @@ Singleton {
 
     function activateWorkspace(index: int): void {
         if (isWorkspaceFocused(index)) {
-            return
+            return;
         }
-        _getWorkspaceByIndex(index).activate()
+        _getWorkspaceByIndex(index).activate();
     }
 
     function doesWorkspaceExist(index: int): bool {
-        const workspace = _getWorkspaceByIndex(index)
-        return workspace != null
+        const workspace = _getWorkspaceByIndex(index);
+        return workspace != null;
     }
 
     function isWorkspaceFocused(index: int): bool {
-        return Hyprland.focusedWorkspace?.id == (index + 1)
+        return Hyprland.focusedWorkspace?.id == (index + 1);
     }
 
     function _getWorkspaceByIndex(index: int): HyprlandWorkspace {
-        const idk = Hyprland.workspaces.values.find(w => w.id == index + 1)
-        return idk
+        const idk = Hyprland.workspaces.values.find(w => w.id == index + 1);
+        return idk;
     }
 
     function _getLayoutDescription(layout: string, variant: string): string {
@@ -45,7 +45,7 @@ Singleton {
             }
         }
 
-        return "No description found."
+        return "No description found.";
     }
 
     Connections {
@@ -53,7 +53,7 @@ Singleton {
 
         function onRawEvent(event) {
             if (event.name == "activelayout") {
-                getUsedLayouts.running = true
+                getUsedLayouts.running = true;
             }
         }
     }
@@ -65,22 +65,23 @@ Singleton {
         command: [ "hyprctl", "-j", "devices" ]
         stdout: StdioCollector {
             onStreamFinished: {
-                const devices = JSON.parse(this.text)
-                const mainKb = devices.keyboards.find((kb) => kb.main == true)
+                const devices = JSON.parse(this.text);
+                const mainKb = devices.keyboards.find((kb) => kb.main == true);
 
-                let layouts = mainKb.layout.split(", ")
-                let variants = mainKb.variant.split(", ")
+                let layouts = mainKb.layout.split(", ");
+                let variants = mainKb.variant.split(", ");
 
-                const activeLayoutIdx = mainKb.active_layout_index
-                root.layout = layouts[activeLayoutIdx]
-                root.variant = variants[activeLayoutIdx]
-                root.keymap = mainKb.active_keymap.slice(0,2).toLowerCase()
+                const activeLayoutIdx = mainKb.active_layout_index;
+                root.layout = layouts[activeLayoutIdx];
+                root.variant = variants[activeLayoutIdx];
+                root.keymap = mainKb.active_keymap.slice(0,2).toLowerCase();
 
                 root.usedLayouts.length = 0;
                 for (let i = 0; i < layouts.length; i++) {
-                    let description = root._getLayoutDescription(layouts[i], variants[i])
-                    root.usedLayouts.push({layout: layouts[i], variant: variants[i], description: description})
+                    let description = root._getLayoutDescription(layouts[i], variants[i]);
+                    root.usedLayouts.push({layout: layouts[i], variant: variants[i], description: description});
                 }
+                root.usedLayoutsChanged();
             }
         }
     }
@@ -92,10 +93,10 @@ Singleton {
         command: [ "sh", "-c", "xkbcli list | yq" ]
         stdout: StdioCollector {
             onStreamFinished: {
-                const data = JSON.parse(this.text)
-                root.xkbLayoutDB = data.layouts
+                const data = JSON.parse(this.text);
+                root.xkbLayoutDB = data.layouts;
 
-                getUsedLayouts.running = true
+                getUsedLayouts.running = true;
             }
         }
     }

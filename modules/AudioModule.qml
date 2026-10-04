@@ -17,17 +17,17 @@ ModuleText {
         State {
             name: "not-muted"
             PropertyChanges {
-                root.color: Colors.fg;
-                root.icon: " ";  // TODO: Unique icon by device type
+                root.color: Colors.fg
+                root.icon: " "  // TODO: Unique icon by device type
                 root.label: AudioService.volume
             }
         },
         State {
             name: "muted"
             PropertyChanges {
-                root.color: Colors.alertHigh;
-                root.icon: " ";
-                root.label: "muted";
+                root.color: Colors.alertHigh
+                root.icon: " "
+                root.label: "muted"
             }
         }
     ]
@@ -38,13 +38,13 @@ ModuleText {
         onClicked: AudioService.toggleMute()
         onWheel: (event)=> {
             if (AudioService.muted) {
-                return
+                return;
             }
 
             if (event.angleDelta.y > 0) {
-                AudioService.increaseVolume(2)
+                AudioService.increaseVolume(2);
             } else {
-                AudioService.decreaseVolume(2)
+                AudioService.decreaseVolume(2);
             }
         }
     }

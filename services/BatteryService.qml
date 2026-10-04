@@ -20,7 +20,7 @@ Singleton {
     property var powerProfile: PowerProfiles.profile.toString()
 
     function nextPowerProfile(): void {
-        const profileAmount = Object.keys(PowerProfile).length
-        PowerProfiles.profile = (PowerProfiles.profile + 1) % profileAmount
+        const profileAmount = Object.keys(PowerProfile).length;
+        PowerProfiles.profile = (PowerProfiles.profile + 1) % profileAmount;
     }
 }

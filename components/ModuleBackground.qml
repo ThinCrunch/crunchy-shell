@@ -18,9 +18,9 @@ Rectangle {
 
     onContentItemChanged: {
         if (contentItem) {
-            contentItem.parent = root
+            contentItem.parent = root;
             
-            contentItem.anchors.centerIn = root
+            contentItem.anchors.centerIn = root;
         }
     }
 }

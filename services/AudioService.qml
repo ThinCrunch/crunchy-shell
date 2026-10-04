@@ -15,29 +15,29 @@ Singleton {
     readonly property bool muted: defaultAudioSink.audio.muted
 
     function setVolume(vol: int): void {
-        defaultAudioSink.audio.volume = clampVolume(vol) / 100
+        defaultAudioSink.audio.volume = clampVolume(vol) / 100;
     }
 
     function increaseVolume(vol: int): void {
-        const newVolume = clampVolume(volume + vol)
+        const newVolume = clampVolume(volume + vol);
 
-        defaultAudioSink.audio.volume = newVolume / 100
+        defaultAudioSink.audio.volume = newVolume / 100;
     }
 
     function decreaseVolume(vol: int): void {
-        const newVolume = clampVolume(volume - vol)
+        const newVolume = clampVolume(volume - vol);
 
-        defaultAudioSink.audio.volume = newVolume / 100
+        defaultAudioSink.audio.volume = newVolume / 100;
     }
 
     function toggleMute(): void {
-        defaultAudioSink.audio.muted = !defaultAudioSink.audio.muted
+        defaultAudioSink.audio.muted = !defaultAudioSink.audio.muted;
     }
 
     function clampVolume(vol: int): int {
-        const clampedTop = Math.min(100, vol)
-        const clamped = Math.max(0, clampedTop)
+        const clampedTop = Math.min(100, vol);
+        const clamped = Math.max(0, clampedTop);
 
-        return clamped
+        return clamped;
     }
 }

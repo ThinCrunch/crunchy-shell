@@ -21,7 +21,7 @@ RowLayout {
 
             MouseArea {
                 anchors.fill: parent
-                onClicked: { HyprlandService.activateWorkspace(wsLabel.index) }
+                onClicked: { HyprlandService.activateWorkspace(wsLabel.index); }
             }
         }
     }
