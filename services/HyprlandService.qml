@@ -9,8 +9,10 @@ Singleton {
     id: root
 
     property string keymap: "KEYMAP"
-    property string layout: "LAYOUT"
-    property string variant: "VARIANT"
+    property string layout: usedLayouts[activeLayoutIdx]?.layout ?? "LAYOUT"
+    property string variant: usedLayouts[activeLayoutIdx]?.variant ?? "VARIANT"
+
+    property int activeLayoutIdx: 0
 
     property var xkbLayoutDB: []
     property var usedLayouts: []
@@ -31,6 +33,11 @@ Singleton {
 
     function isWorkspaceFocused(index: int): bool {
         return Hyprland.focusedWorkspace?.id == (index + 1);
+    }
+
+    function setActiveLayout(index: int): void {
+        setActiveLayout.requestedLayoutIdx = index;
+        setActiveLayout.running = true;
     }
 
     function _getWorkspaceByIndex(index: int): HyprlandWorkspace {
@@ -71,9 +78,7 @@ Singleton {
                 let layouts = mainKb.layout.split(", ");
                 let variants = mainKb.variant.split(", ");
 
-                const activeLayoutIdx = mainKb.active_layout_index;
-                root.layout = layouts[activeLayoutIdx];
-                root.variant = variants[activeLayoutIdx];
+                root.activeLayoutIdx = mainKb.active_layout_index;
                 root.keymap = mainKb.active_keymap.slice(0,2).toLowerCase();
 
                 root.usedLayouts.length = 0;
@@ -81,6 +86,7 @@ Singleton {
                     let description = root._getLayoutDescription(layouts[i], variants[i]);
                     let keymap = description.slice(0,2).toLowerCase();
                     root.usedLayouts.push({
+                        idx: i,
                         layout: layouts[i],
                         variant: variants[i],
                         description: description,
@@ -104,5 +110,13 @@ Singleton {
                 getUsedLayouts.running = true;
             }
         }
+    }
+
+    Process {
+        id: setActiveLayout
+
+        property int requestedLayoutIdx: 0
+
+        command: [ "hyprctl", "switchxkblayout", "current", requestedLayoutIdx ]
     }
 }
