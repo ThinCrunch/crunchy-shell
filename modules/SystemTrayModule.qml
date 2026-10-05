@@ -3,22 +3,26 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell.Widgets
 
-RowLayout {
-    spacing: 6
+import qs.components
 
-    Repeater {
-        model: SystemTray.items
+ModuleBackground {
+    RowLayout {
+        spacing: 6
 
-        IconImage {
-            id: trayIcon
+        Repeater {
+            model: SystemTray.items
 
-            required property var modelData
-            width: 16
-            height: 16
+            IconImage {
+                id: trayIcon
 
-            source: modelData.icon
+                required property var modelData
+                width: 16
+                height: 16
 
-            clip: true
+                source: modelData.icon
+
+                clip: true
+            }
         }
     }
 }

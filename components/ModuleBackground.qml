@@ -23,4 +23,18 @@ Rectangle {
             contentItem.anchors.centerIn = root;
         }
     }
+
+    signal clicked()
+    signal wheel(event: WheelEvent)
+    property alias containsMouse: mouseArea.containsMouse
+    property alias hoverEnabled: mouseArea.hoverEnabled
+
+    MouseArea {
+        id: mouseArea
+
+        anchors.fill: parent
+
+        onClicked: root.clicked()
+        onWheel: event => root.wheel(event)
+    }
 }

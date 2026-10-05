@@ -31,13 +31,9 @@ PanelWindow {
             anchors.leftMargin: 8
             spacing: 8
 
-            ModuleBackground {
-                SystemTrayModule {}
-            }
+            SystemTrayModule {}
 
-            ModuleBackground {
-                WorkspaceModule {}
-            }
+            WorkspaceModule {}
         }
 
         RowLayout {
@@ -45,9 +41,7 @@ PanelWindow {
             anchors.bottom: parent.bottom
             anchors.horizontalCenter: parent.horizontalCenter
 
-            ModuleBackground {
-                ClockModule {}
-            }
+            ClockModule {}
         }
 
         RowLayout {
@@ -57,25 +51,15 @@ PanelWindow {
 
             anchors.rightMargin: 8
 
-            ModuleBackground {
-                KeyboardModule {}
-            }
+            KeyboardModule {}
 
-            ModuleBackground {
-                NetworkModule {}
-            }
+            NetworkModule {}
 
-            ModuleBackground {
-                BatteryModule {}
-            }
+            BatteryModule {}
 
-            ModuleBackground {
-                AudioModule {}
-            }
+            AudioModule {}
 
-            ModuleBackground {
-                PowerProfileModule {}
-            }
+            PowerProfileModule {}
         }
     }
 }
