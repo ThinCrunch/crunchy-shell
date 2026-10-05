@@ -1,5 +1,4 @@
 import QtQuick
-import QtQuick.Layouts
 
 import qs.globals
 
@@ -11,8 +10,8 @@ Rectangle {
 
     property int padding: 12
 
-    Layout.preferredHeight: parent.height - padding
-    Layout.preferredWidth: childrenRect.width + padding
+    implicitHeight: contentItem?.implicitHeight + padding / 2
+    implicitWidth: contentItem?.implicitWidth + padding
 
     default property Item contentItem
 
