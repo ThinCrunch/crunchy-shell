@@ -24,6 +24,8 @@ PopupWindow {
     property int headerWidth: showHeader ? header.width : 0
     property int contentWidth: Math.max(headerWidth, content.width) + 2 * padding
 
+    property int minimumWindowWidth: headerWidth
+
     implicitHeight: content ? contentHeight : 300
     implicitWidth: content ? contentWidth : 300
 
