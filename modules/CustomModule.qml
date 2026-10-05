@@ -21,7 +21,7 @@ ModuleText {
         command: [ "sh", "-c", root.scriptPath ]
         stdout: StdioCollector {
             onStreamFinished: {
-                root.label = this.text;
+                root.label = this.text.trim();
             }
         }
     }
